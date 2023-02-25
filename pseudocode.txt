@@ -1,0 +1,9 @@
+Pseudocode for button click iteration 
+
+Before click:
+- a variable is created for button's parent index number
+
+When any button is clicked:
+- a loop creates a new array to hold the text in each textarea
+- if i === button clicked, then new storage item is created
+
