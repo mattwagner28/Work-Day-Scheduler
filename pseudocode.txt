@@ -7,3 +7,6 @@ When any button is clicked:
 - a loop creates a new array to hold the text in each textarea
 - if i === button clicked, then new storage item is created
 
+After it is stored
+- create loop through each div index again
+- variable for every stored item
