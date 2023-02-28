@@ -1,21 +1,23 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-$(document).ready(function() {
-
-
 $(function () {
 
+  //Retrieves today's date from day.js
   var today = dayjs();
+
+  //Formats today's date into the current hour as an integer 
   var currentHour = Number(today.format('H'));
 
-  
-  // Displays whatever is stored in local storage
-  var atNine = localStorage.getItem('9AM');
-  $('#hour-9').children('textarea').text(atNine);
 
-  // Iterates through the hour divs and creates a style class, conditionally dependent the time of day
+  // Iterates through the hour divs by child number
   ($('.container-lg').children()).each(function () {
+  
+    //Name of the storage item i.e. 10PM, from HTML
+    var storageName = [$(this).children('div').text()];
+
+    //Retrieves saved item from storage and displays it on the site for each hour
+    var atTime = [localStorage.getItem(storageName)];
+    $(this).children('textarea').text(atTime);
+
+    //Adds a class with style in CSS, conditionally dependent the time of day
     if ($(this).index() < (currentHour - 9)) {
     $(this).addClass("row time-block past");
     } else if ($(this).index() > (currentHour - 9)) {
@@ -25,8 +27,8 @@ $(function () {
     }
   })
   
-    
-    
+
+
     //Retrieves the parent index of button pressed, then turns it into a variable -- from https://stackoverflow.com/questions/10291017/how-to-get-id-of-button-user-just-clicked
     $("button").click(function() {
 
@@ -36,29 +38,17 @@ $(function () {
       //Iterates through the hour divs
       ($('.container-lg').children()).each(function () {
         //Userinput 
-        toDo = [$(this).children('textarea').val()];
+        var toDo = [$(this).children('textarea').val()];
 
-        //Name of the storage item i.e. 10PM, from HTML
-        storageName = [$(this).children('div').text()];
+        // //Name of the storage item i.e. 10PM, from HTML
+        var storageName = [$(this).children('div').text()];
         
         if (buttonIndex === $(this).index()) {
         localStorage.setItem(storageName, toDo);
-        // atThisHour = localStorage.getItem(storageName);
-        // $(this).children('textarea').text(atThisHour);
-        // console.log(atThisHour);
         } 
       })
-      
-  
-
   });
     
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-
-
-
   //Displays current date in the header of the page.
   $('#currentDay').text(today.format('dddd, MMMM D, YYYY'));
   console.log($('currentDay'));
@@ -66,5 +56,4 @@ $(function () {
 });
 
 
-});
 
